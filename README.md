@@ -3,4 +3,6 @@
 
 crop.py 을 해당 레포 디렉토리 구조에서 실행 시 별도의 파라미터 없이 이미지 별 폴더와 crop된 이미지를 생성한다.
 
+예시 : OutputImage Floder.
+
 사용된 데이터셋 : [ISTD_Dataset](https://drive.google.com/file/d/1I0qw-65KBA6np8vIZzO6oeiOvcDBttAY/view)
