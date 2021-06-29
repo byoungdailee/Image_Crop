@@ -200,13 +200,26 @@ if __name__ == '__main__':
         filename = 'train/train_A/' + n + '.png'
         filepath = 'OutputImage/'+ n +'_10_64_48/'+ n +'_10_64_48_A/'
         image_crop_A(filename, filepath)
-
+    
     for n in arr_B:
         filename = 'train/train_B/' + n + '.png'
         filepath = 'OutputImage/'+ n +'_10_64_48/'+ n +'_10_64_48_B/'
         image_crop_B(filename, filepath)
-
+    
     for n in arr_C:
         filename = 'train/train_C/' + n + '.png'
         filepath = 'OutputImage/'+ n +'_10_64_48/'+ n +'_10_64_48_C/'
         image_crop_C(filename, filepath)
+
+    # test
+    # filename = 'train/train_A/2-1.png'
+    # filepath = 'OutputImage/2-1_10_64_48/2-1_10_64_48_A/'
+    # image_crop_A(filename, filepath)
+
+    # filename = 'train/train_B/2-1.png'
+    # filepath = 'OutputImage/2-1_10_64_48/2-1_10_64_48_B/'
+    # image_crop_B(filename, filepath)
+
+    # filename = 'train/train_C/2-1.png'
+    # filepath = 'OutputImage/2-1_10_64_48/2-1_10_64_48_C/'
+    # image_crop_C(filename, filepath)
