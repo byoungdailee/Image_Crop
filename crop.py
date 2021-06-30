@@ -1,16 +1,17 @@
+from posixpath import split
 from PIL import Image
 import os
 import os.path
 
-def image_crop_A(infilename, save_path):
+def image_crop_A(infilename, save_path, stride, patch_x_size, patch_y_size):
     name = os.path.basename(infilename)
     name2 = os.path.splitext(name)[0]
     img = Image.open( infilename )
     (img_h, img_w) = img.size
-    grid_w = 10
-    grid_h = 10
-    range_w = (int)(img_w/grid_w)
-    range_h = (int)(img_h/grid_h)
+    grid_w = (int)(stride)
+    grid_h = (int)(stride)
+    range_w = (int)(patch_y_size) #64
+    range_h = (int)(patch_x_size) #48
     for w in range(range_w):
         for h in range(range_h):
             a = h*grid_h
@@ -36,15 +37,15 @@ def image_crop_A(infilename, save_path):
             savename = save_path + fname
             crop_img.save(savename)
 
-def image_crop_C(infilename, save_path):
+def image_crop_C(infilename, save_path, stride, patch_x_size, patch_y_size):
     name = os.path.basename(infilename)
     name2 = os.path.splitext(name)[0]
     img = Image.open( infilename )
     (img_h, img_w) = img.size
-    grid_w = 10
-    grid_h = 10
-    range_w = (int)(img_w/grid_w)
-    range_h = (int)(img_h/grid_h)
+    grid_w = (int)(stride)
+    grid_h = (int)(stride)
+    range_w = (int)(patch_y_size)
+    range_h = (int)(patch_x_size)
     for w in range(range_w):
         for h in range(range_h):
             a = h*grid_h
@@ -70,27 +71,16 @@ def image_crop_C(infilename, save_path):
             savename = save_path + fname
             crop_img.save(savename)
 
-def image_crop_B(infilename, save_path):
+def image_crop_B(infilename, save_path, stride, patch_x_size, patch_y_size):
     name = os.path.basename(infilename)
     name2 = os.path.splitext(name)[0]
     img = Image.open( infilename )
     (img_h, img_w) = img.size
-    grid_w = 10
-    grid_h = 10
-    range_w = (int)(img_w/grid_w)
-    range_h = (int)(img_h/grid_h)
-    im = Image.open(infilename)
-    black = 0
-    white = 0
-    for i in im.getdata():
-        if i == 0:
-            black += 1
-        else:
-            white += 1
-    total = black + white
-    per = total/white
-    tage = str(per)
-    Percentage = tage[0:5]
+    grid_w = (int)(stride)
+    grid_h = (int)(stride)
+    range_w = (int)(patch_y_size)
+    range_h = (int)(patch_x_size)
+    
     for w in range(range_w):
         for h in range(range_h):
             a = h*grid_h
@@ -112,13 +102,32 @@ def image_crop_B(infilename, save_path):
             a = str(grid_h)
             b = str(range_h)
             c = str(range_w)
-            fname = "{}.jpg".format(name2+'_'+a+'_'+b+'_'+c+'_'+"{0:03d}".format(w)+'_'+"{0:03d}".format(h)+'_B_'+Percentage)
+            fname = "{}.jpg".format(name2+'_'+a+'_'+b+'_'+c+'_'+"{0:03d}".format(w)+'_'+"{0:03d}".format(h)+'_B_')
             savename = save_path + fname
             crop_img.save(savename)
 
+            im = Image.open(savename)
+            black = 0
+            white = 0
+            for i in im.getdata():
+                if i == 0:
+                    black += 1
+                else:
+                    white += 1
+            total = black + white
+            try:
+                per = total//white
+            except ZeroDivisionError:
+                per = 0
+            tage = str(per)
+            Percentage = tage[0:5]
+            print(Percentage)
+            os.rename(save_path+name2+'_'+a+'_'+b+'_'+c+'_'+"{0:03d}".format(w)+'_'+"{0:03d}".format(h)+'_B_.jpg', save_path+name2+'_'+a+'_'+b+'_'+c+'_'+"{0:03d}".format(w)+'_'+"{0:03d}".format(h)+'_B_'+Percentage+'.jpg')
+            
 # 전체 이미지의 white 화소 수 Percentage 계산 함수
-def Pixel(infilename):
-    im = Image.open(infilename)
+def Pixel(save_path, fname):
+    im = Image.open(save_path + fname)
+    print(im)
     black = 0
     white = 0
     for i in im.getdata():
@@ -127,8 +136,13 @@ def Pixel(infilename):
         else:
             white += 1
     total = black + white
-    per = total/white
-    return per
+    try:
+        per = total/white
+    except ZeroDivisionError:
+        print("ZeroDivision")
+    tage = str(per)
+    Percentage = tage[0:3]
+    return Percentage
 
 def createFolder(directory):
     try:
@@ -138,12 +152,25 @@ def createFolder(directory):
         print ('Error: Creating directory. ' +  directory)
 
 if __name__ == '__main__':
+    f = open('Parameter.txt', 'r', encoding='UTF-8')
+    rd = f.read()
+    split = rd.split()
+    # split[2] patch_x_size
+    # split[5] patch_y_size
+    # split[8] stride
+    # split[11] input_A_directory
+    # split[14] input_B_directory
+    # split[17] input_C_directory
+    # split[20] output_directory
+
     arr_A = []
     arr_B = []
     arr_C = []
-    targerdir_A = r"train/train_A"
-    targerdir_B = r"train/train_B"
-    targerdir_C = r"train/train_C"
+    targerdir_A = split[11] # input_A_directory
+    targerdir_B = split[14] # input_B_directory
+    targerdir_C = split[17] # input_C_directory
+    grid_w = split[8]
+    grid_h = split[8]
 
     files_A = os.listdir(targerdir_A)
     for i in files_A:
@@ -185,41 +212,47 @@ if __name__ == '__main__':
                         break
 
     for i in range(len(arr_A)):
-        createFolder('OutputImage/'+arr_A[i]+'_10_64_48')
+        createFolder(split[20]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5])
 
     for i in range(len(arr_A)):
-        createFolder('OutputImage/'+arr_A[i]+'_10_64_48/'+arr_A[i]+'_10_64_48_A')
+        createFolder(split[20]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_A')
 
     for i in range(len(arr_A)):
-        createFolder('OutputImage/'+arr_B[i]+'_10_64_48/'+arr_B[i]+'_10_64_48_B')
+        createFolder(split[20]+'/'+arr_B[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_B')
 
     for i in range(len(arr_A)):
-        createFolder('OutputImage/'+arr_C[i]+'_10_64_48/'+arr_C[i]+'_10_64_48_C')
+        createFolder(split[20]+'/'+arr_C[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_C')
 
-    for n in arr_A:
-        filename = 'train/train_A/' + n + '.png'
-        filepath = 'OutputImage/'+ n +'_10_64_48/'+ n +'_10_64_48_A/'
-        image_crop_A(filename, filepath)
+    # for n in arr_A:
+    #     filename = split[11]+'/' + n + '.png'
+    #     filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_A/'
+    #     image_crop_A(filename, filepath, split[8], split[2], split[5])
     
-    for n in arr_B:
-        filename = 'train/train_B/' + n + '.png'
-        filepath = 'OutputImage/'+ n +'_10_64_48/'+ n +'_10_64_48_B/'
-        image_crop_B(filename, filepath)
+    # for n in arr_B:
+    #     filename = split[14]+'/' + n + '.png'
+    #     filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_B/'
+    #     image_crop_B(filename, filepath, split[8], split[2], split[5])
     
-    for n in arr_C:
-        filename = 'train/train_C/' + n + '.png'
-        filepath = 'OutputImage/'+ n +'_10_64_48/'+ n +'_10_64_48_C/'
-        image_crop_C(filename, filepath)
+    # for n in arr_C:
+    #     filename = split[17]+'/' + n + '.png'
+    #     filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_C/'
+    #     image_crop_C(filename, filepath, split[8], split[2], split[5])
 
     # test
-    # filename = 'train/train_A/2-1.png'
-    # filepath = 'OutputImage/2-1_10_64_48/2-1_10_64_48_A/'
-    # image_crop_A(filename, filepath)
+    type_model = ['1-1','2-1']
+    for n in type_model:
+        filename = split[11]+'/' + n + '.png'
+        filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_A/'
+        image_crop_A(filename, filepath, split[8], split[2], split[5])
 
-    # filename = 'train/train_B/2-1.png'
-    # filepath = 'OutputImage/2-1_10_64_48/2-1_10_64_48_B/'
-    # image_crop_B(filename, filepath)
+    for n in type_model:
+        filename = split[14]+'/' + n + '.png'
+        filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_B/'
+        image_crop_B(filename, filepath, split[8], split[2], split[5])
+    
+    for n in type_model:
+        filename = split[17]+'/' + n + '.png'
+        filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_C/'
+        image_crop_C(filename, filepath, split[8], split[2], split[5])
 
-    # filename = 'train/train_C/2-1.png'
-    # filepath = 'OutputImage/2-1_10_64_48/2-1_10_64_48_C/'
-    # image_crop_C(filename, filepath)
+    # B 이미지 별로 화소 구하기
