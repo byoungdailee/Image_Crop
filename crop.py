@@ -8,43 +8,20 @@ def image_crop_A(infilename, save_path, stride, patch_x_size, patch_y_size):
     name2 = os.path.splitext(name)[0]
     img = Image.open( infilename )
     (img_h, img_w) = img.size
-    grid_w = (int)(stride)
-    grid_h = (int)(stride)
-    range_w = (int)(patch_y_size) #64
-    range_h = (int)(patch_x_size) #48
-    num1 = ((img_h-range_h)//grid_w)
-    num2 = ((img_w-range_w)//grid_w)
+    grid_w = (int)(stride) #10
+    grid_h = (int)(stride) #10
+    range_w = (int)(patch_y_size) #48
+    range_h = (int)(patch_x_size) #64
+    ran_w = range_w/10
+    ran_h = range_h/10
+    num1 = ((img_h-range_h)//grid_w)+1 #58
+    num2 = ((img_w-range_w)//grid_w)+1 #44
     for w in range(0,num2):
         for h in range(0,num1):
-            a = 0
-            b = 0
-            c = range_w
-            d = range_h
-
-            # a = grid_h # h * 10
-            # b = grid_w # w * 10
-            # c = range_w #100 -> 64
-            # d = range_h #100 -> 48
-            # if w > img_w:
-            #     break
-            # if h > img_h:
-            #     break
-            
-            # a+=10
-            # print(a,d,c,d)
-            # print(a+range_h)
-            # print(b+range_w)
-            # print(c+range_h)
-            # print(d+range_w)
-            # if a+range_w > img_h:
-            #     break
-            # if b+range_h > img_w:
-            #     break
-            # if c+range_w > img_h:
-            #     break
-            # if d+range_h > img_w:
-            #     break
-            
+            a = h*grid_h
+            b = w*grid_w
+            c = (h+ran_h)*(grid_h)
+            d = (w+ran_w)*(grid_w)
             bbox = (a, b, c, d)
             crop_img = img.crop(bbox)
             z = str(grid_h)
@@ -55,42 +32,34 @@ def image_crop_A(infilename, save_path, stride, patch_x_size, patch_y_size):
             fname = "{}.jpg".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_A')
             savename = save_path + fname
             crop_img.save(savename)
-        a+=10
-        b+=10
 
 def image_crop_C(infilename, save_path, stride, patch_x_size, patch_y_size):
     name = os.path.basename(infilename)
     name2 = os.path.splitext(name)[0]
     img = Image.open( infilename )
     (img_h, img_w) = img.size
-    grid_w = (int)(stride)
-    grid_h = (int)(stride)
-    range_w = (int)(patch_y_size)
-    range_h = (int)(patch_x_size)
-    for w in range(range_w):
-        for h in range(range_h):
+    grid_w = (int)(stride) #10
+    grid_h = (int)(stride) #10
+    range_w = (int)(patch_y_size) #48
+    range_h = (int)(patch_x_size) #64
+    ran_w = range_w/10
+    ran_h = range_h/10
+    num1 = ((img_h-range_h)//grid_w)+1 #58
+    num2 = ((img_w-range_w)//grid_w)+1 #44
+    for w in range(0,num2):
+        for h in range(0,num1):
             a = h*grid_h
             b = w*grid_w
-            c = (h+10)*(grid_h)
-            d = (w+10)*(grid_w)
-
-            if a+range_h > img_h:
-                break
-            if b+range_w > img_w:
-                break
-            if c+range_h > img_h:
-                break
-            if d+range_w > img_w:
-                break
-            
+            c = (h+ran_h)*(grid_h)
+            d = (w+ran_w)*(grid_w)
             bbox = (a, b, c, d)
             crop_img = img.crop(bbox)
-            a = str(grid_h)
-            b = str(range_h)
-            c = str(range_w)
+            z = str(grid_h)
+            n = str(range_h)
+            m = str(range_w)
             wi = str(w)
             he = str(h)
-            fname = "{}.jpg".format(name2+'_'+a+'_'+b+'_'+c+'_'+wi+'_'+he+'_C')
+            fname = "{}.jpg".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_C')
             savename = save_path + fname
             crop_img.save(savename)
 
@@ -103,31 +72,24 @@ def image_crop_B(infilename, save_path, stride, patch_x_size, patch_y_size):
     grid_h = (int)(stride)
     range_w = (int)(patch_y_size)
     range_h = (int)(patch_x_size)
-    
-    for w in range(range_w):
-        for h in range(range_h):
+    ran_w = range_w/10
+    ran_h = range_h/10
+    num1 = ((img_h-range_h)//grid_w)+1 #58
+    num2 = ((img_w-range_w)//grid_w)+1 #44
+    for w in range(num2):
+        for h in range(num1):
             a = h*grid_h
             b = w*grid_w
-            c = (h+10)*(grid_h)
-            d = (w+10)*(grid_w)
-
-            if a+range_h > img_h:
-                break
-            if b+range_w > img_w:
-                break
-            if c+range_h > img_h:
-                break
-            if d+range_w > img_w:
-                break
-
+            c = (h+ran_h)*(grid_h)
+            d = (w+ran_w)*(grid_w)
             bbox = (a, b, c, d)
             crop_img = img.crop(bbox)
-            a = str(grid_h)
-            b = str(range_h)
-            c = str(range_w)
+            z = str(grid_h)
+            n = str(range_h)
+            m = str(range_w)
             wi = str(w)
             he = str(h)
-            fname = "{}.jpg".format(name2+'_'+a+'_'+b+'_'+c+'_'+wi+'_'+he+'_B_')
+            fname = "{}.jpg".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_B_')
             savename = save_path + fname
             crop_img.save(savename)
 
@@ -139,17 +101,8 @@ def image_crop_B(infilename, save_path, stride, patch_x_size, patch_y_size):
                     black += 1
                 else:
                     white += 1
-            try:
-                total = black + white
-                # per = white/total
-                # tage = str(100-per)
-                # Percentage = tage[0:3]
-            except ZeroDivisionError:
-                per = 0
             wh = str(white)
-            bl = str(black)
-            to = str(total)
-            os.rename(save_path+name2+'_'+a+'_'+b+'_'+c+'_'+wi+'_'+he+'_B_.jpg', save_path+name2+'_'+a+'_'+b+'_'+c+'_'+wi+'_'+he+'_B_'+wh+'.jpg')
+            os.rename(save_path+name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_B_.jpg', save_path+name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_B_'+wh+'.jpg')
             black = 0
 
 # 전체 이미지의 white 화소 수 Percentage 계산 함수
@@ -245,33 +198,33 @@ if __name__ == '__main__':
     for i in range(len(arr_A)):
         createFolder(split[20]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_A')
 
-    # for i in range(len(arr_A)):
-    #     createFolder(split[20]+'/'+arr_B[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_B')
+    for i in range(len(arr_A)):
+        createFolder(split[20]+'/'+arr_B[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_B')
 
-    # for i in range(len(arr_A)):
-    #     createFolder(split[20]+'/'+arr_C[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_C')
+    for i in range(len(arr_A)):
+        createFolder(split[20]+'/'+arr_C[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_C')
 
-    # for n in arr_A:
-    #     filename = split[11]+'/' + n + '.png'
-    #     filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_A/'
-    #     image_crop_A(filename, filepath, split[8], split[2], split[5])
-    
-    # for n in arr_B:
-    #     filename = split[14]+'/' + n + '.png'
-    #     filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_B/'
-    #     image_crop_B(filename, filepath, split[8], split[2], split[5])
-    
-    # for n in arr_C:
-    #     filename = split[17]+'/' + n + '.png'
-    #     filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_C/'
-    #     image_crop_C(filename, filepath, split[8], split[2], split[5])
-
-    # test
-    type_model = ['1-1','2-1']
-    for n in type_model:
+    for n in arr_A:
         filename = split[11]+'/' + n + '.png'
         filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_A/'
         image_crop_A(filename, filepath, split[8], split[2], split[5])
+    
+    for n in arr_B:
+        filename = split[14]+'/' + n + '.png'
+        filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_B/'
+        image_crop_B(filename, filepath, split[8], split[2], split[5])
+    
+    for n in arr_C:
+        filename = split[17]+'/' + n + '.png'
+        filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_C/'
+        image_crop_C(filename, filepath, split[8], split[2], split[5])
+
+    # test
+    # type_model = ['1-1','2-1']
+    # for n in type_model:
+    #     filename = split[11]+'/' + n + '.png'
+    #     filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_A/'
+    #     image_crop_A(filename, filepath, split[8], split[2], split[5])
 
     # for n in type_model:
     #     filename = split[14]+'/' + n + '.png'
@@ -282,5 +235,3 @@ if __name__ == '__main__':
     #     filename = split[17]+'/' + n + '.png'
     #     filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_C/'
     #     image_crop_C(filename, filepath, split[8], split[2], split[5])
-
-    # B 이미지 별로 화소 구하기
