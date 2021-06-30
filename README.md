@@ -31,7 +31,7 @@ output_directory = Output
 
 Output 디렉토리 구조 예시
 ```bash
-├── Output
+├── (output_directory)
 │   ├── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)
 │         ├── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(A)
 │         │  ├── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(x축 반복 횟수)_(y축 반복 횟수)_(A)
@@ -39,6 +39,7 @@ Output 디렉토리 구조 예시
 │         │  ├── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(x축 반복 횟수)_(y축 반복 횟수)_(B)_(하얀색 화소수의 개수)
 │         └── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(C)
 │              └── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(x축 반복 횟수)_(y축 반복 횟수)_(C)
+...
 ``` 
 
 위의 Parameter.txt 파일을 수정 시 작성한 값에 맞게 Crop된 이미지를 생성한다.
