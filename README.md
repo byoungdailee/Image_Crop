@@ -4,6 +4,7 @@
 crop.py 을 해당 레포 디렉토리 구조에서 실행 시 Parameter.txt 파일의 입력된 
 
 ```
+Parameter.txt Example.
 patch_x_size = 64
 patch_y_size = 48
 stride = 10
@@ -14,6 +15,6 @@ output_directory = Output
 ```
 을 기준으로 Crop된 이미지를 생성한다.
 
-예시 : OutputImage Floder.
+작동 예시 : OutputImage Floder.
 
 사용된 데이터셋 : [ISTD_Dataset](https://drive.google.com/file/d/1I0qw-65KBA6np8vIZzO6oeiOvcDBttAY/view)
