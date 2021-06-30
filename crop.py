@@ -12,18 +12,26 @@ def image_crop_A(infilename, save_path, stride, patch_x_size, patch_y_size):
     grid_h = (int)(stride)
     range_w = (int)(patch_y_size) #64
     range_h = (int)(patch_x_size) #48
-    # print(img_h, img_w)
     num1 = ((img_h-range_h)//grid_w)
     num2 = ((img_w-range_w)//grid_w)
-    print(num1, num2)
-    for w in range(num2):
-        for h in range(num1):
-            a = h*grid_h # h * 10
-            b = w*grid_w # w * 10
-            c = (h+10)*(grid_h) #100
-            d = (w+10)*(grid_w) #100
-            # print(a,d,c,d)
+    for w in range(0,num2):
+        for h in range(0,num1):
+            a = 0
+            b = 0
+            c = range_w
+            d = range_h
+
+            # a = grid_h # h * 10
+            # b = grid_w # w * 10
+            # c = range_w #100 -> 64
+            # d = range_h #100 -> 48
+            # if w > img_w:
+            #     break
+            # if h > img_h:
+            #     break
             
+            # a+=10
+            # print(a,d,c,d)
             # print(a+range_h)
             # print(b+range_w)
             # print(c+range_h)
@@ -47,6 +55,8 @@ def image_crop_A(infilename, save_path, stride, patch_x_size, patch_y_size):
             fname = "{}.jpg".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_A')
             savename = save_path + fname
             crop_img.save(savename)
+        a+=10
+        b+=10
 
 def image_crop_C(infilename, save_path, stride, patch_x_size, patch_y_size):
     name = os.path.basename(infilename)
