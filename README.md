@@ -15,6 +15,8 @@ output_directory = Output
 ```
 을 기준으로 Crop된 이미지를 생성한다.
 
+위의 Parameter.txt 파일을 수정 시 작성한 값에 맞게 Crop된 이미지를 생성한다.
+
 작동 예시 : OutputImage Floder.
 
 사용된 데이터셋 : [ISTD_Dataset](https://drive.google.com/file/d/1I0qw-65KBA6np8vIZzO6oeiOvcDBttAY/view)
