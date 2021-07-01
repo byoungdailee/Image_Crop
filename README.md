@@ -1,6 +1,8 @@
 # Image Stride and Patch Size 별로 분할.
 이미지 파일을 원하는 stride와 patch size를 기준으로 자르기 위한 .py
 
+사용된 데이터셋 : [ISTD_Dataset](https://drive.google.com/file/d/1I0qw-65KBA6np8vIZzO6oeiOvcDBttAY/view)
+
 crop.py 을 실행한 전체 디렉토리 구조는 다음과 같이 되어있다.
 ```bash
 ├── train
@@ -18,7 +20,7 @@ crop.py 을 실행한 전체 디렉토리 구조는 다음과 같이 되어있�
 디렉토리 구조에서 실행 시 아래의 정보대로 Parameter.txt 파일을 읽어들여 실행된다.
 
 ```
-Parameter.txt Example.
+Example. Parameter.txt
 patch_x_size = 64
 patch_y_size = 48
 stride = 10
@@ -65,5 +67,3 @@ Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디
 │              └── ,,,
 ...
 ``` 
-
-사용된 데이터셋 : [ISTD_Dataset](https://drive.google.com/file/d/1I0qw-65KBA6np8vIZzO6oeiOvcDBttAY/view)
