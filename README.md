@@ -37,9 +37,9 @@ Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디
 ├── [output_dir]
 │   └── [filename]_[stride]_[patch_x_size]_[patch_y_size]
 │         └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_image
-│         │  └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[loc_x]_[loc_y]_image.jpg
+│         │  └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[col_num]_[row_num]_image.jpg
 │         └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_mask
-│              └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[loc_x]_[loc_y]_mask_[num_white_pixel].jpg
+│              └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[col_num]_[row_num]_mask_[num_white_pixel].jpg
 ...
 ``` 
 
