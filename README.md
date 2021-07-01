@@ -1,5 +1,8 @@
-# Image Stride and Patch Size 별로 분할.
-이미지 파일을 원하는 stride와 patch size를 기준으로 자르기 위한 .py
+# Image Stride and Patch Size 별로 Crop.
+
+이미지 파일을 원하는 stride와 patch size를 기준으로 자르기 위한 tool.
+
+Tools for truncating image files into stride and patch sizes.
 
 crop.py 을 실행한 전체 디렉토리 구조는 다음과 같이 되어있다.
 ```bash
