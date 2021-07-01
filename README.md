@@ -7,8 +7,9 @@ crop.py 을 실행한 전체 디렉토리 구조는 다음과 같이 되어있�
 │   ├── image
 │   └── mask
 ├── output
-│   ├── output_dir_image
-│   └── output_dir_mask
+│   └── [filename]_[stride]_[patch_x_size]_[patch_y_size]
+│        ├── [filename]_[stride]_[patch_x_size]_[patch_y_size]_image
+│        └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_mask
 ├── crop.py
 └── Parameter.txt
 ``` 
@@ -30,12 +31,12 @@ Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디
 
 구조 예시 : Output 디렉토리 구조
 ```bash
-├── (output_directory)
-│   ├── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)
-│         ├── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(A)
-│         │  ├── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(x축 반복 횟수)_(y축 반복 횟수)_(A)
-│         ├── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(B)
-│              └── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(x축 반복 횟수)_(y축 반복 횟수)_(B)_(하얀색 화소수의 개수)
+├── [output_dir]
+│   ├── [filename]_[stride]_[patch_x_size]_[patch_y_size]
+│         ├── [filename]_[stride]_[patch_x_size]_[patch_y_size]_image
+│         │  ├── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[Point_X]_[Point_Y]_image.jpg
+│         ├── [filename]_[stride]_[patch_x_size]_[patch_y_size]_mask
+│              └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[Point_X]_[Point_Y]_mask_[white pixel].jpg
 ...
 ``` 
 
