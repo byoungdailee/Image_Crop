@@ -15,7 +15,7 @@ crop.py 을 실행한 전체 디렉토리 구조는 다음과 같이 되어있�
 └── Parameter.txt
 ``` 
 
-디렉토리 구조에서 실행 시 Parameter.txt 파일의 입력된 
+디렉토리 구조에서 실행 시 아래의 정보대로 Parameter.txt 파일을 읽어들여 실행된다.
 
 ```
 Parameter.txt Example.
@@ -27,9 +27,11 @@ input_B_directory = train/train_B
 input_C_directory = train/train_C
 output_directory = Output
 ```
-원하는 Patch size와 stride, 대상이 되는 데이터셋이 있는 디렉토리 경로에 있는 이미지를 대상으로 Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디렉토리를  생성 후 저장한다.
+원하는 Patch size와 stride, 대상이 되는 데이터셋이 있는 디렉토리 경로에 있는 이미지를 대상으로 
 
-Output 디렉토리 구조 예시
+Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디렉토리를  생성 후 저장한다.
+
+구조 예시 : Output 디렉토리 구조
 ```bash
 ├── (output_directory)
 │   ├── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)
@@ -42,7 +44,9 @@ Output 디렉토리 구조 예시
 ...
 ``` 
 
-위의 Parameter.txt 파일을 수정 시 작성한 값에 맞게 Crop된 이미지를 생성한다.
+위의 Parameter.txt 파일의 대상 파일의 경로, stride, patch size를 읽어들여 Crop된 이미지를 생성한다.
+
+해당되는 데이터셋 중 train_B는 그림자 매트에 해당하기 때문의 전체 이미지에서의 white 화소수를 파일명에 추가로 저장하였다.
 
 작동 예시 : Output Floder.
 
