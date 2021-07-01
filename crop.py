@@ -3,7 +3,7 @@ from PIL import Image
 import os
 import os.path
 
-def image_crop_A(infilename, save_path, stride, patch_x_size, patch_y_size):
+def image_crop_A(infilename, save_path, stride, patch_x_size, patch_y_size, A):
     name = os.path.basename(infilename)
     name2 = os.path.splitext(name)[0]
     img = Image.open( infilename )
@@ -29,11 +29,11 @@ def image_crop_A(infilename, save_path, stride, patch_x_size, patch_y_size):
             m = str(range_w)
             wi = str(w)
             he = str(h)
-            fname = "{}.jpg".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_A')
+            fname = "{}.jpg".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+A)
             savename = save_path + fname
             crop_img.save(savename)
 
-def image_crop_C(infilename, save_path, stride, patch_x_size, patch_y_size):
+def image_crop_C(infilename, save_path, stride, patch_x_size, patch_y_size, B):
     name = os.path.basename(infilename)
     name2 = os.path.splitext(name)[0]
     img = Image.open( infilename )
@@ -59,11 +59,11 @@ def image_crop_C(infilename, save_path, stride, patch_x_size, patch_y_size):
             m = str(range_w)
             wi = str(w)
             he = str(h)
-            fname = "{}.jpg".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_C')
+            fname = "{}.jpg".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+C)
             savename = save_path + fname
             crop_img.save(savename)
 
-def image_crop_B(infilename, save_path, stride, patch_x_size, patch_y_size):
+def image_crop_B(infilename, save_path, stride, patch_x_size, patch_y_size, B):
     name = os.path.basename(infilename)
     name2 = os.path.splitext(name)[0]
     img = Image.open( infilename )
@@ -89,7 +89,7 @@ def image_crop_B(infilename, save_path, stride, patch_x_size, patch_y_size):
             m = str(range_w)
             wi = str(w)
             he = str(h)
-            fname = "{}.jpg".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_B_')
+            fname = "{}.jpg".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+B+'_')
             savename = save_path + fname
             crop_img.save(savename)
 
@@ -102,7 +102,7 @@ def image_crop_B(infilename, save_path, stride, patch_x_size, patch_y_size):
                 else:
                     white += 1
             wh = str(white)
-            os.rename(save_path+name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_B_.jpg', save_path+name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_B_'+wh+'.jpg')
+            os.rename(save_path+name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+B+'_.jpg', save_path+name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+B+'_'+wh+'.jpg')
             black = 0
 
 # 전체 이미지의 white 화소 수 Percentage 계산 함수
@@ -152,7 +152,14 @@ if __name__ == '__main__':
     targerdir_C = split[17] # input_C_directory
     grid_w = split[8]
     grid_h = split[8]
-
+    tarA = split[11]
+    tarB = split[14]
+    tarC = split[17]
+    A = tarA[-1]
+    B = tarB[-1]
+    C = tarC[-1]
+    # print(A,B,C)
+    
     files_A = os.listdir(targerdir_A)
     for i in files_A:
         if os.path.isdir(targerdir_A + r"\\" + i):
@@ -196,42 +203,42 @@ if __name__ == '__main__':
         createFolder(split[20]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5])
 
     for i in range(len(arr_A)):
-        createFolder(split[20]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_A')
+        createFolder(split[20]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+A)
 
     for i in range(len(arr_A)):
-        createFolder(split[20]+'/'+arr_B[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_B')
+        createFolder(split[20]+'/'+arr_B[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+B)
 
     for i in range(len(arr_A)):
-        createFolder(split[20]+'/'+arr_C[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_C')
+        createFolder(split[20]+'/'+arr_C[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+C)
 
     for n in arr_A:
         filename = split[11]+'/' + n + '.png'
-        filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_A/'
-        image_crop_A(filename, filepath, split[8], split[2], split[5])
+        filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+A+'/'
+        image_crop_A(filename, filepath, split[8], split[2], split[5], A)
     
     for n in arr_B:
         filename = split[14]+'/' + n + '.png'
-        filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_B/'
-        image_crop_B(filename, filepath, split[8], split[2], split[5])
+        filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+B+'/'
+        image_crop_B(filename, filepath, split[8], split[2], split[5], B)
     
     for n in arr_C:
         filename = split[17]+'/' + n + '.png'
-        filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_C/'
-        image_crop_C(filename, filepath, split[8], split[2], split[5])
+        filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+C+'/'
+        image_crop_C(filename, filepath, split[8], split[2], split[5], C)
 
-    # test
+    # # test
     # type_model = ['1-1','2-1']
     # for n in type_model:
     #     filename = split[11]+'/' + n + '.png'
-    #     filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_A/'
-    #     image_crop_A(filename, filepath, split[8], split[2], split[5])
+    #     filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+A+'/'
+    #     image_crop_A(filename, filepath, split[8], split[2], split[5], A)
 
     # for n in type_model:
     #     filename = split[14]+'/' + n + '.png'
-    #     filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_B/'
-    #     image_crop_B(filename, filepath, split[8], split[2], split[5])
+    #     filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+B+'/'
+    #     image_crop_B(filename, filepath, split[8], split[2], split[5], B)
     
     # for n in type_model:
     #     filename = split[17]+'/' + n + '.png'
-    #     filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_C/'
-    #     image_crop_C(filename, filepath, split[8], split[2], split[5])
+    #     filepath = split[20]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+C+'/'
+    #     image_crop_C(filename, filepath, split[8], split[2], split[5], C)
