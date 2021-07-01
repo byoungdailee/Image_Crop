@@ -34,9 +34,9 @@ Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디
 ├── [output_dir]
 │   └── [filename]_[stride]_[patch_x_size]_[patch_y_size]
 │         └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_image
-│         │  └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[Point_X]_[Point_Y]_image.jpg
+│         │  └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[loc_x]_[loc_y]_image.jpg
 │         └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_mask
-│              └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[Point_X]_[Point_Y]_mask_[white pixel].jpg
+│              └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[loc_x]_[loc_y]_mask_[num_white_pixel].jpg
 ...
 ``` 
 
@@ -44,7 +44,7 @@ Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디
 
 해당되는 데이터셋 중 train_B는 그림자 매트에 해당하기 때문의 전체 이미지에서의 white 화소수를 파일명에 추가로 저장하였다.
 
-작동 예시 : output Floder.
+작동 예시 : output folder.
 ```bash
 ├── output
 │   ├── 1_10_64_48
