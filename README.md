@@ -21,7 +21,7 @@ patch_x_size = 64
 patch_y_size = 48
 stride = 10
 input_dir_image = input/image
-input_dir_mask = imput/mask
+input_dir_mask = input/mask
 output_dir = output
 ```
 원하는 Patch size와 stride, 대상이 되는 데이터셋이 있는 디렉토리 경로에 있는 이미지를 대상으로 
