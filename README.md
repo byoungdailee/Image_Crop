@@ -1,6 +1,8 @@
 # Image Stride and Patch Size 별로 분할.
 이미지 파일을 원하는 stride와 patch size를 기준으로 자르기 위한 .py
 
+사용된 데이터셋 : [ISTD_Dataset](https://drive.google.com/file/d/1I0qw-65KBA6np8vIZzO6oeiOvcDBttAY/view)
+
 crop.py 을 실행한 전체 디렉토리 구조는 다음과 같이 되어있다.
 ```bash
 ├── train
@@ -15,10 +17,10 @@ crop.py 을 실행한 전체 디렉토리 구조는 다음과 같이 되어있�
 └── Parameter.txt
 ``` 
 
-디렉토리 구조에서 실행 시 Parameter.txt 파일의 입력된 
+디렉토리 구조에서 실행 시 아래의 정보대로 Parameter.txt 파일을 읽어들여 실행된다.
 
 ```
-Parameter.txt Example.
+Example. Parameter.txt
 patch_x_size = 64
 patch_y_size = 48
 stride = 10
@@ -27,9 +29,11 @@ input_B_directory = train/train_B
 input_C_directory = train/train_C
 output_directory = Output
 ```
-원하는 Patch size와 stride, 대상이 되는 데이터셋이 있는 디렉토리 경로에 있는 이미지를 대상으로 Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디렉토리를  생성 후 저장한다.
+원하는 Patch size와 stride, 대상이 되는 데이터셋이 있는 디렉토리 경로에 있는 이미지를 대상으로 
 
-Output 디렉토리 구조 예시
+Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디렉토리를  생성 후 저장한다.
+
+구조 예시 : Output 디렉토리 구조
 ```bash
 ├── (output_directory)
 │   ├── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)
@@ -42,8 +46,24 @@ Output 디렉토리 구조 예시
 ...
 ``` 
 
-위의 Parameter.txt 파일을 수정 시 작성한 값에 맞게 Crop된 이미지를 생성한다.
+위의 Parameter.txt 파일의 대상 파일의 경로, stride, patch size를 읽어들여 Crop된 이미지를 생성한다.
+
+해당되는 데이터셋 중 train_B는 그림자 매트에 해당하기 때문의 전체 이미지에서의 white 화소수를 파일명에 추가로 저장하였다.
 
 작동 예시 : Output Floder.
-
-사용된 데이터셋 : [ISTD_Dataset](https://drive.google.com/file/d/1I0qw-65KBA6np8vIZzO6oeiOvcDBttAY/view)
+```bash
+├── Output
+│   ├── 1-1_10_64_48
+│         ├── 1-1_10_64_48_A
+│         │  ├── 1-1_10_64_48_0_0_A.jpg
+│         │  ├── ,,,
+│         ├── 1-1_10_64_48_B
+│         │  ├── 1-1_10_64_48_0_0_B_0.jpg
+│         │  ├── ,,,
+│         │  ├── 1-1_10_64_48_15_45_B_1307.jpg
+│         │  ├── ,,,
+│         └── 1-1_10_64_48_C
+│              ├── 1-1_10_64_48_0_0_C.jpg
+│              └── ,,,
+...
+``` 
