@@ -34,7 +34,7 @@ Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디
 ├── [output_dir]
 │   └── [filename]_[stride]_[patch_x_size]_[patch_y_size]
 │         └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_image
-│              ├── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[Point_X]_[Point_Y]_image.jpg
+│         │  └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[Point_X]_[Point_Y]_image.jpg
 │         └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_mask
 │              └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[Point_X]_[Point_Y]_mask_[white pixel].jpg
 ...
@@ -49,12 +49,12 @@ Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디
 ├── output
 │   ├── 1_10_64_48
 │         └── 1_10_64_48_image
-│               ├── 1_10_64_48_0_0_image.jpg
-│                                               ,,,
+│         │   └── 1_10_64_48_0_0_image.jpg
+│         │                                   ,,,
 │         └── 1-1_10_64_48_mask
 │               ├── 1-1_10_64_48_0_0_mask_0.jpg
-│                                               ,,,
-│               ├── 1-1_10_64_48_15_45_mask_1307.jpg
+│               │                             ,,,
+│               └── 1-1_10_64_48_15_45_mask_1307.jpg
 │                                               ,,,
 ...
 ``` 
