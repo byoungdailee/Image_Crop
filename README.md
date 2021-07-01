@@ -5,14 +5,12 @@
 
 crop.py 을 실행한 전체 디렉토리 구조는 다음과 같이 되어있다.
 ```bash
-├── train
-│   ├── train_A
-│   ├── train_B
-│   └── train_C
-├── test
-│   ├── test_A
-│   ├── test_B
-│   └── test_C
+├── input
+│   ├── image
+│   └── mask
+├── output
+│   ├── output_dir_image
+│   └── output_dir_mask
 ├── crop.py
 └── Parameter.txt
 ``` 
@@ -24,10 +22,9 @@ Example. Parameter.txt
 patch_x_size = 64
 patch_y_size = 48
 stride = 10
-input_A_directory = train/train_A
-input_B_directory = train/train_B
-input_C_directory = train/train_C
-output_directory = Output
+input_dir_image = input/image
+input_dir_mask = imput/mask
+output_dir = output
 ```
 원하는 Patch size와 stride, 대상이 되는 데이터셋이 있는 디렉토리 경로에 있는 이미지를 대상으로 
 
@@ -40,9 +37,7 @@ Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디
 │         ├── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(A)
 │         │  ├── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(x축 반복 횟수)_(y축 반복 횟수)_(A)
 │         ├── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(B)
-│         │  ├── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(x축 반복 횟수)_(y축 반복 횟수)_(B)_(하얀색 화소수의 개수)
-│         └── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(C)
-│              └── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(x축 반복 횟수)_(y축 반복 횟수)_(C)
+│              └── (대상이 되는 파일 명)_(stride)_(patch_x_size)_(patch_y_size)_(x축 반복 횟수)_(y축 반복 횟수)_(B)_(하얀색 화소수의 개수)
 ...
 ``` 
 
@@ -50,20 +45,17 @@ Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디
 
 해당되는 데이터셋 중 train_B는 그림자 매트에 해당하기 때문의 전체 이미지에서의 white 화소수를 파일명에 추가로 저장하였다.
 
-작동 예시 : Output Floder.
+작동 예시 : output Floder.
 ```bash
-├── Output
-│   ├── 1-1_10_64_48
-│         ├── 1-1_10_64_48_A
-│         │  ├── 1-1_10_64_48_0_0_A.jpg
+├── output
+│   ├── 1_10_64_48
+│         ├── 1_10_64_48_image
+│         │  ├── 1_10_64_48_0_0_image.jpg
 │         │  ├── ,,,
-│         ├── 1-1_10_64_48_B
-│         │  ├── 1-1_10_64_48_0_0_B_0.jpg
+│         ├── 1-1_10_64_48_mask
+│         │  ├── 1-1_10_64_48_0_0_mask_0.jpg
 │         │  ├── ,,,
-│         │  ├── 1-1_10_64_48_15_45_B_1307.jpg
-│         │  ├── ,,,
-│         └── 1-1_10_64_48_C
-│              ├── 1-1_10_64_48_0_0_C.jpg
-│              └── ,,,
+│         │  ├── 1-1_10_64_48_15_45_mask_1307.jpg
+│         │  └──  ,,,
 ...
 ``` 
