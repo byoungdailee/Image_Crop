@@ -45,7 +45,7 @@ Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디
 
 위의 Parameter.txt 파일의 대상 파일의 경로, stride, patch size를 읽어들여 Crop된 이미지를 생성한다.
 
-해당되는 데이터셋 중 train_B는 그림자 매트에 해당하기 때문의 전체 이미지에서의 white 화소수를 파일명에 추가로 저장하였다.
+해당되는 데이터셋 중 mask는 그림자 매트에 해당하기 때문의 전체 이미지에서의 white 화소수를 파일명에 추가로 저장하였다.
 
 작동 예시 : output folder.
 ```bash
