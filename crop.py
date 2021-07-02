@@ -6,6 +6,7 @@ import os.path
 def image_crop_A(infilename, save_path, stride, patch_x_size, patch_y_size, A):
     name = os.path.basename(infilename)
     name2 = os.path.splitext(name)[0]
+    name3 = os.path.splitext(name)[1]
     img = Image.open( infilename )
     (img_h, img_w) = img.size
     grid_w = (int)(stride) #10
@@ -29,13 +30,14 @@ def image_crop_A(infilename, save_path, stride, patch_x_size, patch_y_size, A):
             m = str(range_w)
             wi = str(w)
             he = str(h)
-            fname = "{}.png".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+A)
+            fname = "{}".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+A+name3)
             savename = save_path + fname
             crop_img.save(savename)
 
 def image_crop_B(infilename, save_path, stride, patch_x_size, patch_y_size, B):
     name = os.path.basename(infilename)
     name2 = os.path.splitext(name)[0]
+    name3 = os.path.splitext(name)[1]
     img = Image.open( infilename )
     (img_h, img_w) = img.size
     grid_w = (int)(stride)
@@ -59,7 +61,7 @@ def image_crop_B(infilename, save_path, stride, patch_x_size, patch_y_size, B):
             m = str(range_w)
             wi = str(w)
             he = str(h)
-            fname = "{}.png".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+B+'_')
+            fname = "{}".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+B+'_'+name3)
             savename = save_path + fname
             crop_img.save(savename)
 
@@ -72,7 +74,7 @@ def image_crop_B(infilename, save_path, stride, patch_x_size, patch_y_size, B):
                 else:
                     white += 1
             wh = str(white)
-            os.rename(save_path+name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+B+'_.png', save_path+name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+B+'_'+wh+'.png')
+            os.rename(save_path+name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+B+'_'+name3, save_path+name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+B+'_'+wh+name3)
             black = 0
 
 def createFolder(directory):
@@ -88,6 +90,8 @@ if __name__ == '__main__':
     split = rd.split()
     arr_A = []
     arr_B = []
+    arr_AC = []
+    arr_BC = []
     targerdir_A = split[11]
     targerdir_B = split[14]
     grid_w = split[8]
@@ -105,6 +109,7 @@ if __name__ == '__main__':
             if i.count(".") == 1 :
                 V = i.split(".")
                 arr_A.append(V[0])
+                arr_AC.append(V[1])
             else :
                 for k in range(len(i)-1,0,-1):
                     if i[k] == ".":
@@ -118,6 +123,7 @@ if __name__ == '__main__':
             if i.count(".") == 1 :
                 V = i.split(".")
                 arr_B.append(V[0])
+                arr_BC.append(V[1])
             else :
                 for k in range(len(i)-1,0,-1):
                     if i[k] == ".":
@@ -130,11 +136,11 @@ if __name__ == '__main__':
         createFolder(split[17]+'/'+arr_B[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+B)
 
     for n in arr_A:
-        filename = split[11]+'/' + n + '.png'
+        filename = split[11]+'/' + n + '.'+arr_AC[0]
         filepath = split[17]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+A+'/'
         image_crop_A(filename, filepath, split[8], split[2], split[5], A)
     
     for n in arr_B:
-        filename = split[14]+'/' + n + '.png'
+        filename = split[14]+'/' + n + '.'+arr_BC[0]
         filepath = split[17]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+B+'/'
         image_crop_B(filename, filepath, split[8], split[2], split[5], B)
