@@ -10,9 +10,8 @@ crop.py 을 실행한 전체 디렉토리 구조는 다음과 같이 되어있�
 │   ├── image
 │   └── mask
 ├── output
-│   └── [filename]_[stride]_[patch_x_size]_[patch_y_size]
-│        ├── [filename]_[stride]_[patch_x_size]_[patch_y_size]_image
-│        └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_mask
+│   ├── [filename]_[stride]_[patch_x_size]_[patch_y_size]_image
+│   └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_mask
 ├── crop.py
 └── Parameter.txt
 ``` 
@@ -35,11 +34,10 @@ Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디
 구조 예시 : Output 디렉토리 구조
 ```bash
 ├── [output_dir]
-│   └── [filename]_[stride]_[patch_x_size]_[patch_y_size]
-│         └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_image
-│         │  └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[col_num]_[row_num]_image.jpg
-│         └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_mask
-│              └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[col_num]_[row_num]_mask_[num_white_pixel].jpg
+│   └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_image
+│   │  └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[col_num]_[row_num]_image.png
+│   └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_mask
+│        └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[col_num]_[row_num]_mask_[num_white_pixel].png
 ...
 ``` 
 
@@ -50,14 +48,13 @@ Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디
 작동 예시 : output folder.
 ```bash
 ├── output
-│   ├── 1_10_64_48
-│         └── 1_10_64_48_image
-│         │   └── 1_10_64_48_0_0_image.jpg
-│         │                                   ,,,
-│         └── 1_10_64_48_mask
-│               ├── 1_10_64_48_0_0_mask_0.jpg
-│               │                             ,,,
-│               └── 1_10_64_48_15_45_mask_1307.jpg
-│                                               ,,,
+│   └── 1_10_64_48_image
+│   │   └── 1_10_64_48_0_0_image.jpg
+│   │                                   ,,,
+│   └── 1_10_64_48_mask
+│         ├── 1_10_64_48_0_0_mask_0.jpg
+│         │                             ,,,
+│         └── 1_10_64_48_15_45_mask_1307.jpg
+│                                         ,,,
 ...
 ``` 
