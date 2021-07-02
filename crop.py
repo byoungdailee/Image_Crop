@@ -29,7 +29,7 @@ def image_crop_A(infilename, save_path, stride, patch_x_size, patch_y_size, A):
             m = str(range_w)
             wi = str(w)
             he = str(h)
-            fname = "{}.jpg".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+A)
+            fname = "{}.png".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+A)
             savename = save_path + fname
             crop_img.save(savename)
 
@@ -59,7 +59,7 @@ def image_crop_B(infilename, save_path, stride, patch_x_size, patch_y_size, B):
             m = str(range_w)
             wi = str(w)
             he = str(h)
-            fname = "{}.jpg".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+B+'_')
+            fname = "{}.png".format(name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+B+'_')
             savename = save_path + fname
             crop_img.save(savename)
 
@@ -72,7 +72,7 @@ def image_crop_B(infilename, save_path, stride, patch_x_size, patch_y_size, B):
                 else:
                     white += 1
             wh = str(white)
-            os.rename(save_path+name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+B+'_.jpg', save_path+name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+B+'_'+wh+'.jpg')
+            os.rename(save_path+name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+B+'_.png', save_path+name2+'_'+z+'_'+n+'_'+m+'_'+wi+'_'+he+'_'+B+'_'+wh+'.png')
             black = 0
 
 def createFolder(directory):
@@ -94,8 +94,8 @@ if __name__ == '__main__':
     grid_h = split[8]
     tarA = split[11]
     tarB = split[14]
-    A = tarA[6:]
-    B = tarB[6:]
+    A = 'image'
+    B = 'mask'
     
     files_A = os.listdir(targerdir_A)
     for i in files_A:
@@ -122,22 +122,19 @@ if __name__ == '__main__':
                 for k in range(len(i)-1,0,-1):
                     if i[k] == ".":
                         break
-    
-    for i in range(len(arr_A)):
-        createFolder(split[17]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5])
 
     for i in range(len(arr_A)):
-        createFolder(split[17]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+A)
+        createFolder(split[17]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+A)
 
     for i in range(len(arr_B)):
-        createFolder(split[17]+'/'+arr_B[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+B)
+        createFolder(split[17]+'/'+arr_B[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+B)
 
     for n in arr_A:
         filename = split[11]+'/' + n + '.png'
-        filepath = split[17]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+A+'/'
+        filepath = split[17]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+A+'/'
         image_crop_A(filename, filepath, split[8], split[2], split[5], A)
     
     for n in arr_B:
         filename = split[14]+'/' + n + '.png'
-        filepath = split[17]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+B+'/'
+        filepath = split[17]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+B+'/'
         image_crop_B(filename, filepath, split[8], split[2], split[5], B)
