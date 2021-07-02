@@ -35,9 +35,9 @@ Crop된 이미지를 사용자가 작성한 output_directory에 해당하는 디
 ```bash
 ├── [output_dir]
 │   └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_image
-│   │  └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[col_num]_[row_num]_image.png
+│   │  └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[col_num]_[row_num]_image.[Original filename extension]
 │   └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_mask
-│        └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[col_num]_[row_num]_mask_[num_white_pixel].png
+│        └── [filename]_[stride]_[patch_x_size]_[patch_y_size]_[col_num]_[row_num]_mask_[num_white_pixel].[Original filename extension]
 ...
 ``` 
 
