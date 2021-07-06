@@ -130,17 +130,17 @@ if __name__ == '__main__':
                         break
 
     for i in range(len(arr_A)):
-        createFolder(split[17]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+A)
+        createFolder(split[17]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_A[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+A)
 
     for i in range(len(arr_B)):
-        createFolder(split[17]+'/'+arr_B[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+B)
+        createFolder(split[17]+'/'+arr_B[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+arr_B[i]+'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+B)
 
     for n in arr_A:
         filename = split[11]+'/' + n + '.'+arr_AC[0]
-        filepath = split[17]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+A+'/'
+        filepath = split[17]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+A+'/'
         image_crop_A(filename, filepath, split[8], split[2], split[5], A)
     
     for n in arr_B:
         filename = split[14]+'/' + n + '.'+arr_BC[0]
-        filepath = split[17]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+B+'/'
+        filepath = split[17]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'/'+ n +'_'+split[8]+'_'+split[2]+'_'+split[5]+'_'+B+'/'
         image_crop_B(filename, filepath, split[8], split[2], split[5], B)
